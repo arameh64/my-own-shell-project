@@ -20,3 +20,4 @@
 4.0.0 debug
 4.0.1 debug
 4.0.2 alias function implementation
+4.0.3 alias bugfixes singletoken

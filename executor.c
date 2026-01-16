@@ -145,7 +145,10 @@ void run_builtin(t_cmd *cmd, t_history **history)
         builtin_export(cmd->argv);
     else if (strcmp(cmd->argv[0], "unset") == 0)
         builtin_unset(cmd->argv);
+    else if (strcmp(cmd->argv[0], "alias") == 0)          
+        builtin_alias(cmd->argv);                          
 }
+
 
 char *expand_var(char *str)
 {

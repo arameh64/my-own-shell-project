@@ -206,29 +206,30 @@ int is_builtin(char *cmd)
 
 int builtin_alias(char **argv)
 {
+    char *eq;
+    char *name;
+    char *value;
+
     if (!argv[1])
     {
         alias_print_all();
         return 0;
     }
 
-    char *eq = strchr(argv[1], '=');
+    eq = strchr(argv[1], '=');
     if (!eq)
     {
-        fprintf(stderr, "alias: invalid format\n");
+        fprintf(stderr, "alias: usage: alias name=value\n");
         return 1;
     }
 
     *eq = '\0';
-    char *name = argv[1];
-    char *value = eq + 1;
-
-    if (value[0] == '\'' || value[0] == '"')
-    {
-        value++;
-        value[strlen(value) - 1] = '\0';
-    }
+    name = argv[1];
+    value = eq + 1;
 
     alias_set(name, value);
     return 0;
 }
+
+
+

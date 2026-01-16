@@ -81,8 +81,10 @@ void expand_aliases(t_token **tokens)
     if (first->type != TOK_WORD)
         return;
 
-    t_alias *a = alias_find(first->value);
-    if (!a)
+            t_alias *a = alias_find(first->value);
+            
+        
+        if (!a)
         return;
 
     t_token *alias_tokens = tokenize(a->value);
@@ -92,7 +94,6 @@ void expand_aliases(t_token **tokens)
         last = last->next;
 
     last->next = first->next;
-
     free(first->value);
     free(first);
     *tokens = alias_tokens;
