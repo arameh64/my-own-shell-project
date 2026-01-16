@@ -63,6 +63,24 @@ typedef struct s_cmd
 
 extern struct termios orig_termios;
 
+typedef struct s_alias
+{
+    char *name;
+    char *value;
+    struct s_alias *next;
+} t_alias;
+
+extern t_alias *g_aliases;
+
+// ====== ALIAS ========
+t_alias *alias_find(const char * name);
+void alias_set(const char *name, const char *value);
+void alias_unset(const char *name);
+void alias_print_all(void);
+void expand_aliases(t_token **tokens);
+int builtin_alias(char **argv);
+
+
 // ===== HISTORY =====
 void add_history(t_history **head, char *line);
 void print_history(t_history *history);

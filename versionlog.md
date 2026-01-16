@@ -19,3 +19,4 @@
 3.2.3 implementation of rawmode
 4.0.0 debug
 4.0.1 debug
+4.0.2 alias function implementation

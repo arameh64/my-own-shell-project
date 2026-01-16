@@ -5,10 +5,10 @@
 
 static void redraw_prompt(const char *buf, int len)
 {
-    write(STDOUT_FILENO, "\r\033[K", 4);          // go start + clear line
-    write(STDOUT_FILENO, PROMPT, PROMPT_LEN);    // print prompt
+    write(STDOUT_FILENO, "\r\033[K", 4);          
+    write(STDOUT_FILENO, PROMPT, PROMPT_LEN);    
     if (len > 0)
-        write(STDOUT_FILENO, buf, len);           // print buffer
+        write(STDOUT_FILENO, buf, len);          
 }
 
 char *reader(t_history **history)

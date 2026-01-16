@@ -21,7 +21,6 @@ void load_rc(t_history **history)
 
     while (getline(&line, &len, f) != -1)
     {
-        // ignore empty/comment lines
         if (line[0] == '\n' || line[0] == '#')
         {
             continue;

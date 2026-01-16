@@ -8,16 +8,16 @@ int main(void)
     t_history   *history = NULL;
 
     load_rc(&history);   // runs config file
-    enable_raw_mode();  // your raw mode
+    enable_raw_mode();  // raw mode
 
     while (1)
     {
-        raw = reader(&history);   // YOUR reader, not readline
+        raw = reader(&history);   
         if (!raw)
             break;
 
         if (*raw)
-            add_history(&history, raw);   // YOUR history system
+            add_history(&history, raw);   
 
         toks = tokenize(raw);
         if (!toks)
@@ -26,6 +26,9 @@ int main(void)
             continue;
         }
 
+        expand_aliases(&toks);
+        
+        
         cmds = parse_tokens(toks);
         if (!cmds)
         {

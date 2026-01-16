@@ -28,7 +28,7 @@ void execute_single(t_cmd *cmd, t_history **history)
     if (pid == 0)
     {
         handle_redirections(cmd);
-        externals(cmd->argv);   // YOUR function
+        externals(cmd->argv);   
         exit(1);
     }
     
@@ -87,7 +87,6 @@ void execute_pipeline(t_cmd *cmds, t_history **history)
         cmd = cmd->next;
     }
 
-    // wait for all children, last wait sets g_last_status
     while (waitpid(-1, &status, 0) > 0)
     {
         if (WIFEXITED(status))
@@ -190,7 +189,6 @@ char *expand_var(char *str)
         return strdup(result);
     }
 
-    // normal env var
     int start = i + 1;
     int len = 0;
 

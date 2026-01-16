@@ -100,8 +100,6 @@ int builtin_echo(char **argv)
     return 0;
 }
 
-
-
 int builtin_history(t_history *history)
 {
     int i = 1;
@@ -200,6 +198,37 @@ int is_builtin(char *cmd)
         return 1;
     if (strcmp(cmd, "history") == 0)
         return 1;
+    if (strcmp(cmd, "alias") == 0)
+        return 1;
 
+    return 0;
+}
+
+int builtin_alias(char **argv)
+{
+    if (!argv[1])
+    {
+        alias_print_all();
+        return 0;
+    }
+
+    char *eq = strchr(argv[1], '=');
+    if (!eq)
+    {
+        fprintf(stderr, "alias: invalid format\n");
+        return 1;
+    }
+
+    *eq = '\0';
+    char *name = argv[1];
+    char *value = eq + 1;
+
+    if (value[0] == '\'' || value[0] == '"')
+    {
+        value++;
+        value[strlen(value) - 1] = '\0';
+    }
+
+    alias_set(name, value);
     return 0;
 }
