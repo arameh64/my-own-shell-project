@@ -208,7 +208,8 @@ int builtin_alias(char **argv)
 {
     char *eq;
     char *name;
-    char *value;
+    char value[1024] = {0};
+    int i;
 
     if (!argv[1])
     {
@@ -219,17 +220,32 @@ int builtin_alias(char **argv)
     eq = strchr(argv[1], '=');
     if (!eq)
     {
-        fprintf(stderr, "alias: usage: alias name=value\n");
+        fprintf(stderr, "alias: usage: alias name=\"value\"\n");
         return 1;
     }
 
     *eq = '\0';
     name = argv[1];
-    value = eq + 1;
+
+    strcat(value, eq + 1);
+
+    for (i = 2; argv[i]; i++)
+    {
+        strcat(value, " ");
+        strcat(value, argv[i]);
+    }
+
+    if ((value[0] == '"' && value[strlen(value) - 1] == '"') ||
+        (value[0] == '\'' && value[strlen(value) - 1] == '\''))
+    {
+        memmove(value, value + 1, strlen(value) - 2);
+        value[strlen(value) - 2] = '\0';
+    }
 
     alias_set(name, value);
     return 0;
 }
+
 
 
 
